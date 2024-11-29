@@ -1,18 +1,27 @@
 steps:
   # Step 0 - Build the docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1', '.' ]
+    args: 
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1'
+      - '.'
 
   # Step 1 - Run unit tests inside the docker container
   - name: 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1'
-    entrypoint: python
-    args: ["-m", "pytest", "."]
+    entrypoint: 'python'
+    args: 
+      - '-m'
+      - 'pytest'
+      - '.'
 
-  # Step 2 - Push the docker image to be used by Cloud Run
+  # Step 2 - Push the docker image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1']
+    args:
+      - 'push'
+      - 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1'
 
-  # Step 3 - Deploy the image in a cloud run container
+  # Step 3 - Deploy the image to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
@@ -30,7 +39,7 @@ steps:
 
 # Specify the Cloud Logging behavior for build logs
 options:
-  logging: CLOUD_LOGGING_ONLY   # Logs will be stored in Google Cloud Logging (Stackdriver)
+  logging: CLOUD_LOGGING_ONLY  # Logs will be stored in Google Cloud Logging (Stackdriver)
 
 # Optional: Add a service account if required
 # service_account: "projects/your-project-id/serviceAccounts/your-service-account@your-project-id.iam.gserviceaccount.com"
