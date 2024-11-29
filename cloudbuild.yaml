@@ -4,7 +4,7 @@ steps:
     args: [ 'build', '-t', 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1', '.' ]
 
   # Step 1 - Run unit tests inside the docker container
-  - name: 'europe-west1-docker.pkg.dev/just-amp-373710/ci-cd-gcp-example/testwebserver:v1'
+  - name: 'europe-west1-docker.pkg.dev/my-practice-project-443208/ci-cd-gcp-example/testwebserver:v1'
     entrypoint: python
     args: ["-m", "pytest", "."]
 
@@ -31,7 +31,7 @@ steps:
 # Specify the Cloud Storage bucket for build logs
 options:
   logging: CLOUD_LOGGING_ONLY   # You can choose CLOUD_LOGGING_ONLY, NONE, or the default logging options
-  logs_bucket: "gs://your-log-bucket-name"   # Replace with your bucket name
+  logs_bucket: "gs://subani"   # Replace with your bucket name
 
 # You can also specify the service account here if needed:
 # service_account: "projects/your-project-id/serviceAccounts/your-service-account@your-project-id.iam.gserviceaccount.com"
